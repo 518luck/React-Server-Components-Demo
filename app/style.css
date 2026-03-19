@@ -82,26 +82,26 @@ select {
 /* -------------------------------- /CSSRESET --------------------------------*/
 
 :root {
-    /* Colors */
-    --main-border-color: #ddd;
-    --primary-border: #037dba;
-    --gray-20: #404346;
-    --gray-60: #8a8d91;
-    --gray-70: #bcc0c4;
-    --gray-80: #c9ccd1;
-    --gray-90: #e4e6eb;
-    --gray-95: #f0f2f5;
-    --gray-100: #f5f7fa;
-    --primary-blue: #037dba;
-    --secondary-blue: #0396df;
-    --tertiary-blue: #c6efff;
+    /* Colors - Dark Mode */
+    --main-border-color: #2e2e2e;
+    --primary-border: #0ea5e9;
+    --gray-20: #e4e6eb;
+    --gray-60: #a0a3a8;
+    --gray-70: #555;
+    --gray-80: #444;
+    --gray-90: #2a2a2e;
+    --gray-95: #1e1e22;
+    --gray-100: #141417;
+    --primary-blue: #0ea5e9;
+    --secondary-blue: #38bdf8;
+    --tertiary-blue: #0c4a6e;
     --flash-blue: #4cf7ff;
-    --outline-blue: rgba(4, 164, 244, 0.6);
-    --navy-blue: #035e8c;
-    --red-25: #bd0d2a;
-    --secondary-text: #65676b;
-    --white: #fff;
-    --yellow: #fffae1;
+    --outline-blue: rgba(14, 165, 233, 0.5);
+    --navy-blue: #0284c7;
+    --red-25: #ef4444;
+    --secondary-text: #9ca3af;
+    --white: #1a1a1e;
+    --yellow: #2a2520;
 
     --outline-box-shadow: 0 0 0 2px var(--outline-blue);
     --outline-box-shadow-contrast: 0 0 0 2px var(--navy-blue);
@@ -120,6 +120,7 @@ html {
 body {
     font-family: var(--sans-serif);
     background: var(--gray-100);
+    color: #e4e6eb;
     font-weight: 400;
     line-height: 1.75;
 }
@@ -166,13 +167,14 @@ code {
 }
 
 pre {
-    background: var(--gray-95);
+    background: #242428;
     padding: 12px;
     line-height: 1.5;
 }
 
 code {
-    background: var(--yellow);
+    background: #2a2520;
+    color: #fbbf24;
     padding: 0 3px;
     font-size: 0.94rem;
     word-break: break-word;
@@ -183,7 +185,7 @@ pre code {
 }
 
 a {
-    color: var(--primary-blue);
+    color: var(--secondary-blue);
 }
 
 .text-with-markdown h1,
@@ -205,8 +207,8 @@ a {
 hr {
     border: 0;
     height: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* ---------------------------------------------------------------------------*/
@@ -258,7 +260,7 @@ hr {
 }
 
 .edit-button--outline {
-    background: var(--white);
+    background: #242428;
     color: var(--primary-blue);
     border: 1px solid var(--primary-blue);
     margin-inline-start: 12px;
@@ -291,8 +293,8 @@ ul.notes-list {
 }
 
 .sidebar {
-    background: var(--white);
-    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1), 0px 2px 2px rgba(0, 0, 0, 0.1);
+    background: #1a1a1e;
+    box-shadow: 1px 0 3px rgba(0, 0, 0, 0.4);
     overflow-y: scroll;
     z-index: 1000;
     flex-shrink: 0;
@@ -355,7 +357,7 @@ ul.notes-list {
     border: none;
     border-radius: 6px;
     text-align: start;
-    background: var(--gray-95);
+    background: #242428;
     cursor: pointer;
     outline-style: none;
     color: transparent;
@@ -367,7 +369,7 @@ ul.notes-list {
 }
 
 .sidebar-note-open:hover {
-    background: var(--gray-90);
+    background: #2e2e33;
 }
 
 .sidebar-note-header {
@@ -429,7 +431,9 @@ ul.notes-list {
 .search input {
     padding: 0 16px;
     border-radius: 100px;
-    border: 1px solid var(--gray-90);
+    border: 1px solid var(--gray-70);
+    background: #242428;
+    color: #e4e6eb;
     width: 100%;
     height: 100%;
     outline-style: none;
@@ -452,8 +456,8 @@ ul.notes-list {
 }
 
 .note {
-    background: var(--white);
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1), 0px 0px 1px rgba(0, 0, 0, 0.1);
+    background: #1e1e22;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
     height: 95%;
     width: 95%;
@@ -503,7 +507,7 @@ ul.notes-list {
 }
 
 .note-editor {
-    background: var(--white);
+    background: #1e1e22;
     display: flex;
     height: 100%;
     width: 100%;
@@ -526,7 +530,8 @@ ul.notes-list {
 
 .note-editor-form input,
 .note-editor-form textarea {
-    background: none;
+    background: #242428;
+    color: #e4e6eb;
     border: 1px solid var(--gray-70);
     border-radius: 2px;
     font-family: var(--monospace);
@@ -599,7 +604,7 @@ ul.notes-list {
 
 .note-editor-delete {
     border: 1px solid var(--red-25);
-    background: var(--white);
+    background: #242428;
     color: var(--red-25);
 }
 
@@ -680,8 +685,8 @@ ul.notes-list {
 
 .skeleton {
     height: 100%;
-    background-color: #eee;
-    background-image: linear-gradient(90deg, #eee, #f5f5f5, #eee);
+    background-color: #2a2a2e;
+    background-image: linear-gradient(90deg, #2a2a2e, #333338, #2a2a2e);
     background-size: 200px 100%;
     background-repeat: no-repeat;
     border-radius: 4px;
