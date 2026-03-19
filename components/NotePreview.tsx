@@ -27,10 +27,10 @@ const allowedAttributes = Object.assign(
 //dangerouslySetInnerHTML : 这是一个 React 属性，它允许你直接将一个字符串作为 HTML 插入到 DOM 中。
 // 正常情况下，React 会阻止这种操作（为了防止 XSS 攻击）。
 // 但在这里，我们通过 sanitize-html 库对内容进行了严格的“安检”，确保没有恶意代码，所以使用它是安全的。
-export default async function NotePreview({ children }: { children: string }) {
+export default function NotePreview({ children }: { children: string }) {
 
-    // 2. 使用 await 等待转换结果，这时候拿到的肯定就是 string
-    const html = await marked.parse(children || '');
+    // marked.parse() 在没有异步插件时实际返回的是 string，这里用类型断言告诉 TypeScript
+    const html = marked.parse(children || '') as string;
 
     return (
         <div className="note-preview">

@@ -18,9 +18,7 @@ export default function Note({ noteId, note }: { noteId: string, note: Note }) {
                     <EditButton noteId={noteId}>Edit</EditButton>
                 </div>
             </div>
-
             <NotePreview>{content}</NotePreview>
-
         </div>
     )
 }

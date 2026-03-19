@@ -10,7 +10,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
     // 为了让 Suspense 的效果更明显
     const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
-    await sleep(5000);
+    await sleep(1000);
 
     if (note == null) {
         return (
