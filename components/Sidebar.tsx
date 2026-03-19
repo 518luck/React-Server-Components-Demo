@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getAllNotes } from '@/lib/redis';
 import SidebarNoteList from '@/components/SidebarNoteList';
+import EditButton from '@/components/EditButton';
 
 export default async function Sidebar() {
     const notes: Record<string, string> = await getAllNotes()
@@ -24,7 +25,7 @@ export default async function Sidebar() {
                 </Link>
 
                 <section className="sidebar-menu" role="menubar">
-                    {/* SideSearchField */}
+                    <EditButton noteId={null}>New</EditButton>
                 </section>
 
                 <nav>
