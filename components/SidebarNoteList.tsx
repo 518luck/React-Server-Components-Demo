@@ -14,7 +14,6 @@ export default async function NoteList() {
         return <div className="notes-empty">
             {'No notes created yet!'}
         </div>
-
     }
 
     return <ul className="notes-list">
