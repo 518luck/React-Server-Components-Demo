@@ -3,7 +3,7 @@ import { getAllNotes } from '@/lib/redis';
 import SidebarNoteList from '@/components/SidebarNoteList';
 
 export default async function Sidebar() {
-    const notes = await getAllNotes()
+    const notes: Record<string, string> = await getAllNotes()
     return (
         <>
             <section className="col sidebar">

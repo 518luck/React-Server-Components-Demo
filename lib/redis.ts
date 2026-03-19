@@ -1,13 +1,8 @@
 import Redis from 'ioredis'
-
+import type { Note } from "@/types"
 const redis = new Redis()
 
-// 笔记接口
-export interface Note {
-    title: string;
-    content: string;
-    updateTime: string;
-}
+
 
 const initialData: Record<string, string> = {
     "1702459181837": '{"title":"sunt aut","content":"quia et suscipit suscipit recusandae","updateTime":"2023-12-13T09:19:48.837Z"}',

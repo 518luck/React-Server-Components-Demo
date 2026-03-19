@@ -5,7 +5,6 @@ export default async function Page() {
       <span className="note-text--empty-state">
         Click a note on the left to view something! 🥺
       </span>
-
     </div>
 
   )
