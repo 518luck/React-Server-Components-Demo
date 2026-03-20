@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import NotePreview from '@/components/NotePreview'
 import { useFormStatus } from 'react-dom'
-import { deleteNote, saveNote } from '@/app/actions'
+import { deleteNote, saveNote } from '../app/actions'
 
 export default function NoteEditor({
     noteId,
@@ -23,36 +23,13 @@ export default function NoteEditor({
     return (
         <div className="note-editor">
             <form className="note-editor-form" autoComplete="off">
-                <label className="offscreen" htmlFor="note-title-input">
-                    Enter a title for your note
-                </label>
-
-                <input
-                    id="note-title-input"
-                    type="text"
-                    value={title}
-                    onChange={(e) => {
-                        setTitle(e.target.value)
-                    }}
-                />
-                <label className="offscreen" htmlFor="note-body-input">
-                    Enter the body for your note
-                </label>
-
-                <textarea
-                    value={body}
-                    id="note-body-input"
-                    onChange={(e) => setBody(e.target.value)}
-                />
-            </form>
-
-            <div className="note-editor-preview">
-                <form className="note-editor-menu" role="menubar">
+                <div className="note-editor-menu" role="menubar">
+                    <input type="hidden" name="noteId" value={noteId ?? ""} />
                     <button
                         className="note-editor-done"
                         disabled={pending}
                         type="submit"
-                        formAction={() => saveNote(noteId, title, body)}
+                        formAction={saveNote}
                         role="menuitem"
                     >
                         <img
@@ -69,8 +46,8 @@ export default function NoteEditor({
                         <button
                             className="note-editor-delete"
                             disabled={pending}
+                            formAction={deleteNote}
                             role="menuitem"
-                            formAction={() => deleteNote(noteId)}
                         >
                             <img
                                 src="/cross.svg"
@@ -83,8 +60,34 @@ export default function NoteEditor({
                         </button>
 
                     )}
-                </form>
+                </div>
 
+                <label className="offscreen" htmlFor="note-title-input">
+                    Enter a title for your note
+                </label>
+
+                <input
+                    id="note-title-input"
+                    type="text"
+                    name="title"
+                    value={title}
+                    onChange={(e) => {
+                        setTitle(e.target.value)
+                    }}
+                />
+                <label className="offscreen" htmlFor="note-body-input">
+                    Enter the body for your note
+                </label>
+
+                <textarea
+                    name="body"
+                    value={body}
+                    id="note-body-input"
+                    onChange={(e) => setBody(e.target.value)}
+                />
+            </form>
+
+            <div className="note-editor-preview">
                 <div className="label label--preview" role="status">
                     Preview
                 </div>
@@ -95,7 +98,7 @@ export default function NoteEditor({
 
             </div>
 
-        </div >
+        </div>
 
     )
 }
