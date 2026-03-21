@@ -17,6 +17,7 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"
@@ -31,6 +32,12 @@
       ],
       "@/lib/*": [
         "./lib/*"
+      ],
+      "@/actions": [
+        "app/[lng]/actions.ts"
+      ],
+      "@/config": [
+        "config.ts"
       ]
     }
   },
