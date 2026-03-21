@@ -5,13 +5,13 @@ import { addNote, updateNote, delNote } from '@/lib/redis';
 import { revalidatePath } from 'next/cache';
 import { z } from "zod";
 import { FormState } from '@/components/NoteEditor';
+import sleep from '@/lib/sleep';
 
 const schema = z.object({
     title: z.string(),
     content: z.string().min(1, '请填写内容').max(100, '字数最多 100')
 });
 export type FormDataSchema = z.infer<typeof schema>;
-const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
 export async function saveNote(prevState: FormState, formData: FormData): Promise<FormState> {
 
