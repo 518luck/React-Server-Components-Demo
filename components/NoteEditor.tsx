@@ -1,9 +1,20 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState, useActionState } from 'react'
 import NotePreview from '@/components/NotePreview'
-import { useFormStatus } from 'react-dom'
 import { deleteNote, saveNote } from '../app/actions'
+import SaveButton from '@/components/SaveButton'
+import DeleteButton from '@/components/DeleteButton'
+import { z } from "zod";
+
+export type FormState = {
+    message?: string | null;
+    errors?: z.core.$ZodIssue[];
+};
+
+const initialState: FormState = {
+    message: null,
+}
 
 export default function NoteEditor({
     noteId,
@@ -15,51 +26,41 @@ export default function NoteEditor({
     initialBody: string
 }) {
 
-    const { pending } = useFormStatus()
+    // 第一个参数：state（上一次的状态，也就是你的 initialState）。
+    // 第二个参数：formData（表单提交的数据）。
+    const [saveState, saveFormAction] = useActionState(saveNote, initialState)
+    const [delState, delFormAction] = useActionState(deleteNote, initialState)
+
     const [title, setTitle] = useState(initialTitle)
     const [body, setBody] = useState(initialBody)
+
     const isDraft = !noteId
+
+    useEffect(() => {
+        if (saveState.errors) {
+            // 处理错误
+            console.log(saveState.errors)
+            console.log("saveState", saveState);
+
+        }
+    }, [saveState])
 
     return (
         <div className="note-editor">
             <form className="note-editor-form" autoComplete="off">
                 <div className="note-editor-menu" role="menubar">
                     <input type="hidden" name="noteId" value={noteId ?? ""} />
-                    <button
-                        className="note-editor-done"
-                        disabled={pending}
-                        type="submit"
-                        formAction={saveNote}
-                        role="menuitem"
-                    >
-                        <img
-                            src="/checkmark.svg"
-                            width="14px"
-                            height="10px"
-                            alt=""
-                            role="presentation"
-                        />
-                        Done
-                    </button>
+                    <SaveButton formAction={saveFormAction} />
+                    <DeleteButton isDraft={isDraft} formAction={delFormAction} />
+                </div>
 
-                    {!isDraft && (
-                        <button
-                            className="note-editor-delete"
-                            disabled={pending}
-                            formAction={deleteNote}
-                            role="menuitem"
-                        >
-                            <img
-                                src="/cross.svg"
-                                width="10px"
-                                height="10px"
-                                alt=""
-                                role="presentation"
-                            />
-                            Delete
-                        </button>
+                <div className="note-editor-menu">
+                    {saveState?.message}
+                </div>
 
-                    )}
+                <div className="note-editor-menu">
+                    {saveState?.message}
+                    {saveState.errors && saveState.errors[0].message}
                 </div>
 
                 <label className="offscreen" htmlFor="note-title-input">

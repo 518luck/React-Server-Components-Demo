@@ -1,36 +1,56 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { revalidatePath } from 'next/cache'
 import { addNote, updateNote, delNote } from '@/lib/redis';
+import { revalidatePath } from 'next/cache';
+import { z } from "zod";
+import { FormState } from '@/components/NoteEditor';
 
-export async function saveNote(formData: FormData) {
+const schema = z.object({
+    title: z.string(),
+    content: z.string().min(1, '请填写内容').max(100, '字数最多 100')
+});
+export type FormDataSchema = z.infer<typeof schema>;
+const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
-    let noteId = String(formData.get('noteId'));
-    const title = formData.get('title')
-    const body = formData.get('body')
+export async function saveNote(prevState: FormState, formData: FormData): Promise<FormState> {
 
-    const data = JSON.stringify({
-        title,
-        content: body,
+    // 获取 noteId
+    const noteId = String(formData.get('noteId'));
+    const data = {
+        title: formData.get('title'),
+        content: formData.get('body'),
         updateTime: new Date()
-    })
-
-    if (noteId && noteId !== null) {
-        await updateNote(noteId, data)
-    } else {
-        noteId = await addNote(data)
     }
 
-    // 通知 Next.js：数据变了，请重新获取页面数据
-    revalidatePath('/')
-    redirect(`/note/${noteId}`)
+    // 校验数据
+    const validated = schema.safeParse(data)
+    if (!validated.success) {
+        return {
+            message: '校验失败',
+            errors: validated.error.issues,
+        }
+    }
+
+    // 模拟请求时间
+    await sleep(2000)
+
+    // 更新数据库
+    if (noteId) {
+        await updateNote(noteId, JSON.stringify(data))
+        revalidatePath('/', 'layout')
+    } else {
+        await addNote(JSON.stringify(data))
+        revalidatePath('/', 'layout')
+    }
+
+    return { message: `Add Success!` }
 }
 
-export async function deleteNote(formData: FormData) {
+export async function deleteNote(prevState: FormState, formData: FormData): Promise<FormState> {
     const noteId = String(formData.get('noteId'));
-    await delNote(noteId)
-    // 通知 Next.js：数据变了，请重新获取页面数据
-    revalidatePath('/')
+    delNote(noteId)
+    revalidatePath('/', 'layout')
+    return { message: `Delete Success!` }
     redirect('/')
 }
