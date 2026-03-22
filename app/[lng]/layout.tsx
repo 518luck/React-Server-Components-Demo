@@ -1,3 +1,4 @@
+import { Footer } from '@/components/Footer';
 import './style.css'
 import Sidebar from '@/components/Sidebar'
 import { locales } from '@/config'
@@ -23,6 +24,9 @@ export default async function RootLayout({
           <div className="main">
             <Sidebar lng={lng} />
             <section className="col note-viewer">{children}</section>
+          </div>
+          <div>
+            <Footer lng={lng} />
           </div>
         </div>
       </body>
