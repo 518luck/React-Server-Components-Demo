@@ -1,4 +1,4 @@
-import { useTranslation } from "@/app/i18n";
+import { getTranslation } from "@/app/i18n";
 
 // app/page.js
 export default async function Page({ params }: Readonly<{
@@ -6,7 +6,7 @@ export default async function Page({ params }: Readonly<{
 }>) {
   const { lng } = await params
 
-  const { t } = await useTranslation(lng)
+  const { t } = await getTranslation(lng)
   return (
     <div className="note--empty-state">
       <span className="note-text--empty-state">

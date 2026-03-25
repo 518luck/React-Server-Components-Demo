@@ -4,10 +4,10 @@ import EditButton from '@/components/EditButton';
 import NoteListSkeleton from '@/components/NoteListSkeleton';
 import { Suspense } from 'react';
 import SidebarSearchField from '@/components/SidebarSearchField';
-import { useTranslation } from '@/app/i18n';
+import { getTranslation } from '@/app/i18n';
 
 export default async function Sidebar({ lng }: { lng: string }) {
-    const { t } = await useTranslation(lng)
+    const { t } = await getTranslation(lng)
 
     return (
         <>
