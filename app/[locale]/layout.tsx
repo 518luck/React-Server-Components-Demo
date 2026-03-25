@@ -21,7 +21,7 @@ export default async function RootLayout({
       <body>
         <div className="container">
           <div className="main">
-            <Sidebar lng={locale} />
+            <Sidebar />
             <section className="col note-viewer">{children}</section>
           </div>
           <div>
