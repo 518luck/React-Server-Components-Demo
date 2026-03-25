@@ -1,36 +1,34 @@
-import { Footer } from '@/components/Footer';
-import './style.css'
-import Sidebar from '@/components/Sidebar'
-import { locales } from '@/config'
-
+import { Footer } from "@/components/Footer";
+import "./style.css";
+import Sidebar from "@/components/Sidebar";
+import { locales } from "@/config";
 
 export async function generateStaticParams() {
-  return locales.map((lng) => ({ lng }))
+  return locales.map((locale) => ({ locale }));
 }
 
 export default async function RootLayout({
   children,
-  params
+  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ lng: string }>;
+  params: Promise<{ locale: string }>;
 }>) {
-  const { lng } = await params
+  const { locale } = await params;
 
   return (
-    <html lang={lng}>
+    <html lang={locale}>
       <body>
         <div className="container">
           <div className="main">
-            <Sidebar lng={lng} />
+            <Sidebar lng={locale} />
             <section className="col note-viewer">{children}</section>
           </div>
           <div>
-            <Footer lng={lng} />
+            <Footer lng={locale} />
           </div>
         </div>
       </body>
     </html>
-
-  )
+  );
 }

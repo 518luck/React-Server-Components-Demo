@@ -6,8 +6,6 @@ import { getTranslation } from "@/app/i18n/index";
 
 // Footer 是一个异步服务端组件
 export const Footer = async ({ lng }: { lng: string }) => {
-  console.log("lng", lng);
-
   // 使用 footer 命名空间加载翻译
   const { t } = await getTranslation(lng, "footer");
 
